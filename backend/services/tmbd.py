@@ -4,10 +4,10 @@ from dotenv import load_dotenv
 import os
 
 BASE_URL = "https://api.themoviedb.org/3"
-
+load_dotenv()
 
 def get_trending_movies():
-    load_dotenv()
+    
     api_key = os.getenv("TMDB_API_KEY")
     params = {
         "api_key":api_key 
@@ -19,5 +19,20 @@ def get_trending_movies():
     response.raise_for_status()
     data = response.json() 
     return data
+
+def search_movies(query):
+    api_key =  os.getenv("TMDB_API_KEY")
+    params = {
+        "api_key":api_key,
+        "query" : query
+    } 
+    
+    url = BASE_URL+ "/search/movie"
+    response = requests.get(url,params=params) 
+    response.raise_for_status()
+    data = response.json() 
+    return data
+
+    
 
 
