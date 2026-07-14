@@ -1,5 +1,5 @@
 from flask import Blueprint,jsonify,request
-from services.tmbd import get_trending_movies,search_movies
+from services.tmbd import get_trending_movies,search_movies,get_movie_details
 
 
 movies_bp = Blueprint("movies",__name__)
@@ -17,4 +17,10 @@ def search_movies_route():
         return jsonify({"error": "Query parameter is required"}), 400
 
     results = search_movies(query)
-    return jsonify(results)
+    return jsonify(results) 
+
+
+@movies_bp.route("/<int:movie_id>")
+def movie_details(movie_id):
+    details =  get_movie_details(movie_id) 
+    return jsonify(details)

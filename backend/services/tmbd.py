@@ -34,5 +34,18 @@ def search_movies(query):
     return data
 
     
+def get_movie_details(movie_id):
+    api_key =  os.getenv("TMDB_API_KEY") 
+    params = {
+        "api_key" : api_key , 
+        
+    } 
+
+    url = f"{BASE_URL}/movie/{movie_id}"
+    response = requests.get(url,params=params) 
+    response.raise_for_status()
+    data = response.json() 
+    return data
+
 
 
