@@ -1,5 +1,5 @@
 from flask import Blueprint,jsonify,request
-from services.tmbd import get_trending_movies,search_movies,get_movie_details
+from services.tmbd import get_trending_movies,search_movies,get_movie_details,get_movie_trailer
 
 
 movies_bp = Blueprint("movies",__name__)
@@ -23,4 +23,10 @@ def search_movies_route():
 @movies_bp.route("/<int:movie_id>")
 def movie_details(movie_id):
     details =  get_movie_details(movie_id) 
-    return jsonify(details)
+    return jsonify(details) 
+
+@movies_bp.route("/<int:movie_id>/trailer")
+def movie_trailer(movie_id):
+    trailer =  get_movie_trailer(movie_id) 
+    return jsonify(trailer) 
+
