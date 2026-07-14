@@ -54,8 +54,6 @@ def get_movie_trailer(movie_id):
         
     } 
     url = f"{BASE_URL}/movie/{movie_id}/videos"
-    print(url)
-    print(params)
     response = requests.get(url,params=params) 
     response.raise_for_status()
     data = response.json() 
