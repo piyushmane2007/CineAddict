@@ -67,3 +67,30 @@ def get_movie_trailer(movie_id):
     
       
     return trailer_url
+
+
+def get_movie_credits(movie_id):
+    api_key =  os.getenv("TMDB_API_KEY") 
+    params = {
+        "api_key" : api_key , 
+        
+    } 
+    url = f"{BASE_URL}/movie/{movie_id}/credits"
+    response = requests.get(url,params=params) 
+    response.raise_for_status()
+    data = response.json() 
+    director = None
+    cast = [] 
+    for person in data["crew"]:
+        if person["job"] == "Director":
+            director = person["name"]
+            break 
+
+    for actor in data["cast"][:5]:
+        cast.append(actor["name"])
+
+        
+    return {
+        "director":director,
+        "cast":cast
+    }
