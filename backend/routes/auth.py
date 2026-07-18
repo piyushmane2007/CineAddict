@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 
 from services.auth_service import register_user, login_user
 
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 auth_bp = Blueprint("auth", __name__) 
 
@@ -41,9 +41,20 @@ def login():
             "error": "Invalid email or password"
         }), 401
 
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(identity=str(user.id))
 
     return jsonify({
         "message": "Login successful",
         "access_token": access_token
     }), 200
+
+@auth_bp.route("/profile", methods = ["GET"])
+@jwt_required()
+def profile():
+
+    current_user_id = get_jwt_identity()
+
+    return jsonify({
+        "message" : "Protected Route Accessed",
+        "user_id" : current_user_id
+    }),200
