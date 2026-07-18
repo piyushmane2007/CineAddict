@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify
 
 from services.auth_service import register_user, login_user
 
+from flask_jwt_extended import create_access_token
+
 auth_bp = Blueprint("auth", __name__) 
 
 @auth_bp.route("/register", methods=["POST"])
@@ -36,15 +38,12 @@ def login():
 
     if user is None:
         return jsonify({
-            "Error": "Invalid email or password"
-        }),401 
-    
-    return jsonify({
-        "message" : "Login successful",
-        "user" : {
-            "id":user.id,
-            "username":user.username,
-            "email": user.email,
-        }
-    }), 200 
+            "error": "Invalid email or password"
+        }), 401
 
+    access_token = create_access_token(identity=user.id)
+
+    return jsonify({
+        "message": "Login successful",
+        "access_token": access_token
+    }), 200
