@@ -2,7 +2,7 @@ import { Star } from "lucide-react";
 
 function MovieCard({ movie }) {
   return (
-    <div className="group cursor-pointer overflow-hidden rounded-xl bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500">
+    <div className="group cursor-pointer overflow-hidden rounded-xl bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500/40">
       {/* Movie Poster */}
       <div className="overflow-hidden">
         <img
