@@ -9,7 +9,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 border-b  bg-black backdrop-blur-md">
+    <header className="fixed top-0 left-0 w-full z-50 border-b  bg-black/40 backdrop-blur-md">
       <nav className="mx-auto flex h-16 md:h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
         {/* Logo */}
         <Logo />
