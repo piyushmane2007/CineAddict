@@ -8,5 +8,17 @@ class User(db.Model):
     email = db.Column(db.String(120), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False)
 
+    watchlist = db.relationship(
+    "Watchlist",
+    backref="user",
+    lazy=True,
+    cascade="all, delete-orphan"
+)
+
     def __repr__(self):
-        return f"<User {self.username}>"
+        return f"<User {self.username}>" 
+    
+    
+
+
+
