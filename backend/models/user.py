@@ -13,6 +13,12 @@ class User(db.Model):
     backref="user",
     lazy=True,
     cascade="all, delete-orphan"
+) 
+    favorites = db.relationship(
+    "Favorite",
+    backref="user",
+    lazy=True,
+    cascade="all, delete-orphan"
 )
 
     def __repr__(self):
