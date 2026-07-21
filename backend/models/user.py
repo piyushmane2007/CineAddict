@@ -19,6 +19,18 @@ class User(db.Model):
     backref="user",
     lazy=True,
     cascade="all, delete-orphan"
+) 
+    search_history = db.relationship(
+    "SearchHistory",
+    backref="user",
+    lazy=True,
+    cascade="all, delete-orphan"
+)
+    recently_viewed = db.relationship(
+    "Recently_Viewed",
+    backref="user",
+    lazy=True,
+    cascade="all, delete-orphan"
 )
 
     def __repr__(self):
