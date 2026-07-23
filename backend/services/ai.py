@@ -1,6 +1,7 @@
 import json
 import requests
 from config import Config
+from services.tmbd import search_movies
 
 # Gemini API Endpoint
 API_URL = (
@@ -12,7 +13,7 @@ API_URL = (
 def get_ai_recommendations(prompt):
     """
     Sends a prompt to Gemini AI and returns
-    a list of recommended movie titles.
+    recommended movies with TMDb details.
     """
 
     if not prompt or not prompt.strip():
@@ -83,9 +84,32 @@ User Request:
         try:
             movies = json.loads(ai_response)
 
+            recommended_movies = []
+
+            for title in movies["movies"]:
+
+                search_result = search_movies(title)
+
+                if search_result["results"]:
+
+                    movie = search_result["results"][0]
+
+                    recommended_movies.append({
+                        "id": movie["id"],
+                        "title": movie["title"],
+                        "rating": movie["vote_average"],
+                        "poster_url": (
+                            f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+                            if movie["poster_path"]
+                            else None
+                        ),
+                        "overview": movie["overview"],
+                        "release_date": movie["release_date"]
+                    })
+
             return {
                 "success": True,
-                "movies": movies["movies"]
+                "movies": recommended_movies
             }
 
         except json.JSONDecodeError:
