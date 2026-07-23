@@ -14,7 +14,7 @@ from models.search_history import SearchHistory
 from routes.search_history import search_history_bp
 from models.recently_viewed import Recently_Viewed
 from routes.recently_viewed import recently_viewed_bp
-
+from routes.ai import ai_bp
 
 app = Flask(__name__)
 
@@ -39,6 +39,8 @@ app.register_blueprint(favorites_bp, url_prefix="/api/favorites")
 app.register_blueprint(search_history_bp, url_prefix="/api/search-history")
 
 app.register_blueprint(recently_viewed_bp, url_prefix="/api/recently-viewed")
+
+app.register_blueprint( ai_bp, url_prefix="/api/ai") 
 
 @app.route("/")
 def home():
